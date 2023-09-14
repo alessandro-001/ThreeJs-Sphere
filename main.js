@@ -6,7 +6,6 @@ import gsap from 'gsap';
 //scene
 const scene = new THREE.Scene();
 
-
 //sphere creation
 const geometry = new THREE.SphereGeometry( 3, 64, 64 );
 const material = new THREE.MeshStandardMaterial({ 
@@ -19,8 +18,8 @@ scene.add(sphere);
 
 //sizes
 const sizes = {
-  width: window.innerWidth, //takes the whole width of the screen
-  height: window.innerHeight, //takes the whole height of the screen
+  width: window.innerWidth, 
+  height: window.innerHeight,
 }
 
 
