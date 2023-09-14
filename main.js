@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import './style.css'
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
-
+import gsap from 'gsap';
 
 //scene
 const scene = new THREE.Scene();
@@ -9,9 +9,12 @@ const scene = new THREE.Scene();
 
 //sphere creation
 const geometry = new THREE.SphereGeometry( 3, 64, 64 );
-const material = new THREE.MeshStandardMaterial( { color: '#00ff83' } ); 
-const mesh = new THREE.Mesh(geometry, material);
-scene.add(mesh);
+const material = new THREE.MeshStandardMaterial({ 
+  color: '#13ECD4',
+  roughness: 0.2,
+}); 
+const sphere = new THREE.Mesh(geometry, material);
+scene.add(sphere);
 
 
 //sizes
@@ -74,3 +77,31 @@ const resizeLoop = () => {
 }
 resizeLoop();
 
+//timeline
+const tl = gsap.timeline({defaults: {duration: 1}})
+tl.fromTo(sphere.scale, {x: 0, y: 0, z: 0}, {x: 1, y: 1, z: 1});
+tl.fromTo('nav', {y: '-100%'}, {y: '0%'});
+tl.fromTo('title', {opacity: 0}, {opacity: 1});
+
+//mouse animation color
+let mouseDown = false;
+let rgb = [];
+
+window.addEventListener('mousedown', () => (mouseDown = true));
+window.addEventListener('mouseup', () => (mouseDown = false));
+window.addEventListener('mousemove', (e) => {
+  if (mouseDown) {
+    rgb = [
+      Math.round((e.pageX / sizes.width) * 255),
+      Math.round((e.pageY / sizes.height) * 255),
+      150,
+    ]
+    //animation
+    let newColor = new THREE.Color(`rgb(${rgb.join(',')})`);
+    gsap.to(sphere.material.color, {
+      r: newColor.r, 
+      g: newColor.g, 
+      b: newColor.b
+    })
+  }
+})

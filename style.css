@@ -17,7 +17,27 @@ html {
 }
 
 nav {
+  display: flex;
   color: white;
   z-index: 2;
   position: relative;
+  padding: 4rem 8rem;
+  justify-content: space-between;
+}
+
+nav a {
+  text-decoration: none;
+  color: aquamarine;
+}
+
+
+.title {
+  color: rgb(255, 255, 255);
+  z-index: 2;
+  position: absolute;
+  font-size: 3rem;
+  left: 50%;
+  top: 75%;
+  margin-top: 5rem;
+  transform: translate(-50%, -75%);
 }
